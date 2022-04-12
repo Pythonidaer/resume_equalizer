@@ -54,6 +54,10 @@ https://pypi.org/project/nltk/
 - How would this go about being used on a production server?
 
 PDF Miner:
+
+Explained best by this gentlemen, finally one that works!
+https://www.youtube.com/watch?v=1TDS6-hYPDI&t=302s
+
 https://pypi.org/project/pdfminer/
 https://www.analyticsvidhya.com/blog/2021/09/pypdf2-library-for-working-with-pdf-files-in-python/
 
