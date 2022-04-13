@@ -1,12 +1,14 @@
 # Messy experimentations
 __pycache__
-templates
+# templates
 website
 main.py
 app.txt
 demo.py 
 requirements.txt
 main.txt
+remove_watermark.py
+accordion.json
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/

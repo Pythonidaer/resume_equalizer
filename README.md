@@ -77,3 +77,13 @@ https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
 Bootstrap
 
 - https://getbootstrap.com/docs/5.1/utilities/float/
+
+pprint for formatted prints to terminal
+https://stackoverflow.com/questions/44689546/how-to-print-out-a-dictionary-nicely-in-python
+
+Very convenient way to loop over lists by range:
+https://www.askpython.com/python/list/iterate-through-list-in-python
+
+I need to combine the PDF Miner tutorial with this one:
+https://github.com/viveksb007/camscanner_watermark_remover
+https://viveksb007.github.io/2018/04/uploading-processing-downloading-files-in-flask

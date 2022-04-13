@@ -14,6 +14,83 @@ from nltk.corpus import stopwords
 import re 
 punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™\']')
 
+# This allows formatted objects in prints, and to write json
+import pprint
+import json
+
+# attempt to upload file again
+# CAMSCANNER CODE START
+import os
+from flask import Flask, request, redirect, url_for, render_template, send_from_directory
+from werkzeug.utils import secure_filename
+from PyPDF2 import PdfFileReader, PdfFileWriter
+
+UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'
+DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/downloads/'
+# ALLOWED_EXTENSIONS = {'pdf', 'txt'}
+ALLOWED_EXTENSIONS = {'pdf'} #my edit attempt
+
+app = Flask(__name__, static_url_path="/static")
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+# limit upload size upto 8mb
+app.config['MAX_CONTENT_LENGTH'] = 8 * 1024 * 1024
+
+# function checks the filename for allowed file extension
+# if the file type is supported, function returns True
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            print('No file attached in request')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            print('No file selected')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            get_pdf_file_content(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
+            return redirect(url_for('uploaded_file', filename=filename))
+    return render_template('index.html')
+
+
+def process_file(path, filename):
+    remove_watermark(path, filename)
+
+
+def remove_watermark(path, filename):
+    input_file = PdfFileReader(open(path, 'rb'))
+    output = PdfFileWriter()
+    for page_number in range(input_file.getNumPages()):
+        page = input_file.getPage(page_number)
+        page.mediaBox.lowerLeft = (page.mediaBox.getLowerLeft_x(), 20)
+        output.addPage(page)
+    output_stream = open(app.config['DOWNLOAD_FOLDER'] + filename, 'wb')
+    output.write(output_stream)
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
+
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
+
+
+# CANSCANNER CODE END
+
+
+
+
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
 def get_pdf_file_content(path_to_pdf):
 
@@ -40,6 +117,11 @@ def get_pdf_file_content(path_to_pdf):
 
     return text
 
+
+
+
+
+
 # Samples worked!!! - Instructions in README for how to create a pdf of your own in Google Docs
 # path_to_pdf = "./assets/JobRec.pdf"
 # path_to_pdf = "./assets/LinkedInSoftEng.pdf"
@@ -47,13 +129,9 @@ path_to_pdf = "./assets/BakeryPackager.pdf"
 
 # Create a variable that contains the value of the pdf-turned-to-string
 pdf_text = get_pdf_file_content(path_to_pdf)
-print(pdf_text)
-print('---------- ---------- -- ---------- ----------')
 
 # Tokenize is covered in the NLTK tutorial. I forget what it does, but in general it splits up every word into a list item/ element that is a string.
 pdf_tokens = word_tokenize(pdf_text)
-print(pdf_tokens)
-print('---------- ---------- -- ---------- ----------')
 
 # For each string element in the list, if any indexes fit the regex words, remove/don't include that characters (bullet points, %, ,, ...);
 post_punctuation = []
@@ -62,47 +140,52 @@ for words in pdf_tokens:
     # Don't keep it if there aren't any letters in it at all
     if len(word)>0:
         post_punctuation.append(word)
-# print(post_punctuation)
 
-# This needs a toLowerCase() equivalent -- should be case sensitive to avoid repeats
 # Each word in the job description is aligned with an appropriate POS (parts of speech).
-# NOTE: THIS WILL EVENTUALLY HELP USERS SEE "IMPORTANT" WORDS IN THE JOB DESCRIPTION THEY MAY WANT TO USE ON THEIR TAILORED RESUMES
-# Note to self: ask recruiters if the ATS system looks or any particular parts of speech (nouns, verbs, etc.)
 pos_jobrec = []
 for token in post_punctuation:
     pos_jobrec.append(nltk.pos_tag([token]))
-    # print(nltk.pos_tag([token]))
-
-# See how data looks
-# print(pos_jobrec[0])
-# print(type(pos_jobrec[0][0]))
-# print(pos_jobrec)
 
 # Instead of a list containing nested lists of tuples, unpack so that one list contains every tuple but with no surrounding individual lists.
 tuple_extractor = []
 for list_tuple in pos_jobrec:
     tuple_extractor.append(list_tuple[0])
-    # print(dict(list_tuple[0]))
 
-print(tuple_extractor)
+# Reverse tuples so POS appear first, almost like a K:V pair
+def Reverse(tuples):
+    new_tup = tuples[::-1]
+    return new_tup      
+tuples_POS_first = []
+for tuple in tuple_extractor:
+    tuples_POS_first.append(Reverse(tuple))
 
-# for tuple in tuple_extractor:
-    # print(dict(tuple))
-    # print(tuple)
+# Create a list of POS elements then make it unique w/ set()
+unique_POS_list = []
+for POS in tuples_POS_first:
+    unique_POS_list.append(POS[0])
+unique_POS_list = list(set(unique_POS_list))
 
-# dict_converter = dict(tuple_extractor)
-# print(dict_converter.values())
-# pos_list = dict_converter.values()
-# new_value = list(pos_list)
-# print(new_value)
+# Now all unique POS keys are stored in a dictionary/object
+accordion_dict = {}
+for POS in unique_POS_list:
+    accordion_dict[POS] = []
 
+# This is a dictionary of POS lists that should be cleaned
+for words in tuples_POS_first:
+    accordion_dict[words[0]] += [words[1]]
 
-# TO DO NOTES:
-# Turn the tuple[1] into an object key
-# When that value already exists, make another (VN, NN, etc.)
-# When that POS isn't there yet, add it as another key
-# Make it so that each key in a dictionary is the former tuple POS, and every value for the respective keys would be just lists of words that align with that POS
-# Loop or prepare to loop into a Boostrap Accordion - this requires knowing how store multiple lists into panels
-# Ideally this would also include the quantity of each word (not talking about ands, though am talking about 'experience' and relevant pronouns such as Jinja)
+# for each list in the dict, lowercase each str in that list
+for key, value in accordion_dict.items():
+    for i in range(len(value)):
+        value[i] = value[i].lower()
 
-# HOW DOES A USER GET TO POSTING A PDF SO THAT WE CAN RETRIEVE IT AND APPLY CHANGES TO IT?!?!?!?!
+# Capitalization differs so there are still repeats
+filtered_accordion = {}
+for key, value in accordion_dict.items():
+    filtered_accordion[key] = list(set(value))
+
+pprint.pprint(filtered_accordion)
+
+out_file = open("accordion.json", "w")
+json.dump(filtered_accordion, out_file, indent = 6)
+out_file.close()
