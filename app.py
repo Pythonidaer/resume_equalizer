@@ -1,4 +1,5 @@
 # PDF Miner tutorial in README
+from fileinput import filename
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.layout import LAParams
 from pdfminer.converter import TextConverter
@@ -19,77 +20,20 @@ import pprint
 import json
 
 # attempt to upload file again
-# CAMSCANNER CODE START
+# Uploading Flask Files CODE START
 import os
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory
 from werkzeug.utils import secure_filename
-from PyPDF2 import PdfFileReader, PdfFileWriter
 
-UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'
-DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/downloads/'
-# ALLOWED_EXTENSIONS = {'pdf', 'txt'}
-ALLOWED_EXTENSIONS = {'pdf'} #my edit attempt
+UPLOAD_FOLDER = './uploads'
+ALLOWED_EXTENSIONS = {'pdf'}
 
-app = Flask(__name__, static_url_path="/static")
-DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
-# limit upload size upto 8mb
-app.config['MAX_CONTENT_LENGTH'] = 8 * 1024 * 1024
 
-# function checks the filename for allowed file extension
-# if the file type is supported, function returns True
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            print('No file attached in request')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            print('No file selected')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            get_pdf_file_content(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
-            return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('index.html')
-
-
-def process_file(path, filename):
-    remove_watermark(path, filename)
-
-
-def remove_watermark(path, filename):
-    input_file = PdfFileReader(open(path, 'rb'))
-    output = PdfFileWriter()
-    for page_number in range(input_file.getNumPages()):
-        page = input_file.getPage(page_number)
-        page.mediaBox.lowerLeft = (page.mediaBox.getLowerLeft_x(), 20)
-        output.addPage(page)
-    output_stream = open(app.config['DOWNLOAD_FOLDER'] + filename, 'wb')
-    output.write(output_stream)
-
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
-
-
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
-
-
-# CANSCANNER CODE END
-
-
-
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
 def get_pdf_file_content(path_to_pdf):
@@ -118,6 +62,49 @@ def get_pdf_file_content(path_to_pdf):
     return text
 
 
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # print(app.config['UPLOAD_FOLDER'], filename)
+            # return f"{app.config['UPLOAD_FOLDER']}/{filename}" 
+            # return redirect(request.url), f"{app.config['UPLOAD_FOLDER']}/{filename}"
+
+            # print(get_pdf_file_content(f"{UPLOAD_FOLDER}/{filename}"))
+            print(f"{app.config['UPLOAD_FOLDER']}/{filename}")
+            return render_template("index.html")
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload a new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form>
+    '''
+
+# This would have routed to a new url website/uploads/filename.pdf
+# @app.route('/uploads/<name>')
+# def download_file(name):
+#     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
+
+# Uploading Flask Files CODE END
 
 
 
@@ -126,9 +113,13 @@ def get_pdf_file_content(path_to_pdf):
 # path_to_pdf = "./assets/JobRec.pdf"
 # path_to_pdf = "./assets/LinkedInSoftEng.pdf"
 path_to_pdf = "./assets/BakeryPackager.pdf"
+path_to_pdf = upload_file()
+# path_to_pdf = upload_file()[1]
+# print(path_to_pdf)
 
 # Create a variable that contains the value of the pdf-turned-to-string
 pdf_text = get_pdf_file_content(path_to_pdf)
+# pdf_text = upload_file()
 
 # Tokenize is covered in the NLTK tutorial. I forget what it does, but in general it splits up every word into a list item/ element that is a string.
 pdf_tokens = word_tokenize(pdf_text)
@@ -179,7 +170,7 @@ for key, value in accordion_dict.items():
     for i in range(len(value)):
         value[i] = value[i].lower()
 
-# Capitalization differs so there are still repeats
+# Remove duplicate elements in each list
 filtered_accordion = {}
 for key, value in accordion_dict.items():
     filtered_accordion[key] = list(set(value))

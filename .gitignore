@@ -9,6 +9,10 @@ requirements.txt
 main.txt
 remove_watermark.py
 accordion.json
+remove_watermark.py
+test.json
+balls.html
+appBackup.py
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/
