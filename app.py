@@ -113,7 +113,7 @@ if __name__ == '__main__':
 # path_to_pdf = "./assets/JobRec.pdf"
 # path_to_pdf = "./assets/LinkedInSoftEng.pdf"
 path_to_pdf = "./assets/BakeryPackager.pdf"
-path_to_pdf = upload_file()
+# path_to_pdf = upload_file()
 # path_to_pdf = upload_file()[1]
 # print(path_to_pdf)
 
