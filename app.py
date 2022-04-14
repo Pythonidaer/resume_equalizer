@@ -106,13 +106,17 @@ if __name__ == '__main__':
 
 # Uploading Flask Files CODE END
 
-
+pdf_entry = os.listdir(f'{UPLOAD_FOLDER}')
+def pdf_entry_returner():
+    for entry in pdf_entry:
+        return entry
 
 
 # Samples worked!!! - Instructions in README for how to create a pdf of your own in Google Docs
 # path_to_pdf = "./assets/JobRec.pdf"
 # path_to_pdf = "./assets/LinkedInSoftEng.pdf"
-path_to_pdf = "./assets/BakeryPackager.pdf"
+# path_to_pdf = "./assets/BakeryPackager.pdf"
+path_to_pdf = f"{UPLOAD_FOLDER}/{pdf_entry_returner()}"
 # path_to_pdf = upload_file()
 # path_to_pdf = upload_file()[1]
 # print(path_to_pdf)
