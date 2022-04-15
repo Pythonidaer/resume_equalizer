@@ -1,0 +1,10 @@
+certifi==2021.10.8
+charset-normalizer==2.0.12
+discord==1.7.3
+discord.py==1.7.3
+pdfminer==20191125
+prettytable==3.1.1
+pycryptodome==3.14.1
+requests==2.27.1
+urllib3==1.26.8
+wcwidth==0.2.5

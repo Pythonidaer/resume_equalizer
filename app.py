@@ -22,7 +22,7 @@ import json
 # attempt to upload file again
 # Uploading Flask Files CODE START
 import os
-from flask import Flask, request, redirect, url_for, render_template, send_from_directory
+from flask import Flask, request, redirect, url_for, render_template, send_from_directory, flash
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './uploads'
@@ -85,15 +85,7 @@ def upload_file():
             # print(get_pdf_file_content(f"{UPLOAD_FOLDER}/{filename}"))
             print(f"{app.config['UPLOAD_FOLDER']}/{filename}")
             return render_template("index.html")
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload a new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('index.html') #this renders the file in the templates folder instead of putting html here
 
 # This would have routed to a new url website/uploads/filename.pdf
 # @app.route('/uploads/<name>')
@@ -102,7 +94,8 @@ def upload_file():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    # app.run(host='0.0.0.0', port=port)
+    app.run(debug=True) #this will make it restart every time you save - super helpful
 
 # Uploading Flask Files CODE END
 
