@@ -25,7 +25,7 @@ import os
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory, flash
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = './uploads'
+UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 
 app = Flask(__name__)
@@ -65,26 +65,34 @@ def get_pdf_file_content(path_to_pdf):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            # print(app.config['UPLOAD_FOLDER'], filename)
-            # return f"{app.config['UPLOAD_FOLDER']}/{filename}" 
-            # return redirect(request.url), f"{app.config['UPLOAD_FOLDER']}/{filename}"
+        f = request.files['file']
+        secured_file = secure_filename(f.filename)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
+        return 'file uploaded successfully'
 
-            # print(get_pdf_file_content(f"{UPLOAD_FOLDER}/{filename}"))
-            print(f"{app.config['UPLOAD_FOLDER']}/{filename}")
-            return render_template("index.html")
+
+
+    # if request.method == 'POST':
+    #     # check if the post request has the file part
+    #     if 'file' not in request.files:
+    #         flash('No file part')
+    #         return redirect(request.url)
+    #     file = request.files['file']
+    #     # If the user does not select a file, the browser submits an
+    #     # empty file without a filename.
+    #     if file.filename == '':
+    #         flash('No selected file')
+    #         return redirect(request.url)
+    #     if file and allowed_file(file.filename):
+    #         filename = secure_filename(file.filename)
+    #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    #         # print(app.config['UPLOAD_FOLDER'], filename)
+    #         # return f"{app.config['UPLOAD_FOLDER']}/{filename}"
+    #         # return redirect(request.url), f"{app.config['UPLOAD_FOLDER']}/{filename}"
+    #
+    #         # print(get_pdf_file_content(f"{UPLOAD_FOLDER}/{filename}"))
+    #         print(f"{app.config['UPLOAD_FOLDER']}/{filename}")
+    #         return render_template("index.html")
     return render_template('index.html') #this renders the file in the templates folder instead of putting html here
 
 # This would have routed to a new url website/uploads/filename.pdf
