@@ -31,9 +31,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
 def get_pdf_file_content(path_to_pdf):
@@ -62,14 +60,20 @@ def get_pdf_file_content(path_to_pdf):
     return text
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         secured_file = secure_filename(f.filename)
+        print(secured_file)
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
-        return 'file uploaded successfully'
-
+        # return 'file uploaded successfully'
+        return redirect("/uploads/" + secured_file)
 
 
     # if request.method == 'POST':
@@ -95,10 +99,10 @@ def upload_file():
     #         return render_template("index.html")
     return render_template('index.html') #this renders the file in the templates folder instead of putting html here
 
-# This would have routed to a new url website/uploads/filename.pdf
-# @app.route('/uploads/<name>')
-# def download_file(name):
-#     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+# Used to route
+@app.route('/uploads/<name>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
