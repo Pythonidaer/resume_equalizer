@@ -70,16 +70,17 @@ def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         secured_file = secure_filename(f.filename)
-        print(secured_file)
+        # print(secured_file)
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
         # return 'file uploaded successfully'
         return redirect("/uploads/" + secured_file)
 
 
+#you'll want to add back in this validation
     # if request.method == 'POST':
     #     # check if the post request has the file part
     #     if 'file' not in request.files:
-    #         flash('No file part')
+    #         flash('No file part') # this requires some jinja in the html to make work see https://flask.palletsprojects.com/en/2.1.x/patterns/flashing/ right now it will throw an error
     #         return redirect(request.url)
     #     file = request.files['file']
     #     # If the user does not select a file, the browser submits an
@@ -99,11 +100,18 @@ def upload_file():
     #         return render_template("index.html")
     return render_template('index.html') #this renders the file in the templates folder instead of putting html here
 
-# Used to route
+
+# Displays the pdf on screen
 @app.route('/uploads/<name>')
 def download_file(name):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+    # this is where you would work with the file. Instead of the current return, you could go with something like
+    # with open(app.config["UPLOAD_FOLDER"], name) as file:
+        # put pdf operations here
+        # put output here - another return render_template()
 
+
+# this code block typically goes at the very end of your file
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     # app.run(host='0.0.0.0', port=port)
