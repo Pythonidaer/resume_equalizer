@@ -1,5 +1,5 @@
 # PDF Miner tutorial in README
-from fileinput import filename
+from fileinput import filename 
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.layout import LAParams
 from pdfminer.converter import TextConverter
@@ -113,20 +113,23 @@ def pdf_entry_returner():
 
 
 # Samples worked!!! - Instructions in README for how to create a pdf of your own in Google Docs
-# path_to_pdf = "./assets/JobRec.pdf"
+path_to_pdf = "./assets/JobRec.pdf"
 # path_to_pdf = "./assets/LinkedInSoftEng.pdf"
 # path_to_pdf = "./assets/BakeryPackager.pdf"
-path_to_pdf = f"{UPLOAD_FOLDER}/{pdf_entry_returner()}"
+# path_to_pdf = f"{UPLOAD_FOLDER}/{pdf_entry_returner()}"
 # path_to_pdf = upload_file()
 # path_to_pdf = upload_file()[1]
 # print(path_to_pdf)
 
 # Create a variable that contains the value of the pdf-turned-to-string
+# pdf_text = get_pdf_file_content(path_to_pdf)
 pdf_text = get_pdf_file_content(path_to_pdf)
+
 # pdf_text = upload_file()
 
 # Tokenize is covered in the NLTK tutorial. I forget what it does, but in general it splits up every word into a list item/ element that is a string.
 pdf_tokens = word_tokenize(pdf_text)
+# print(pdf_tokens)
 
 # For each string element in the list, if any indexes fit the regex words, remove/don't include that characters (bullet points, %, ,, ...);
 post_punctuation = []
@@ -181,6 +184,6 @@ for key, value in accordion_dict.items():
 
 pprint.pprint(filtered_accordion)
 
-out_file = open("accordion.json", "w")
+out_file = open("test.json", "w")
 json.dump(filtered_accordion, out_file, indent = 6)
-out_file.close()
+out_file.close() 
