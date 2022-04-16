@@ -192,11 +192,10 @@ def download_file(name):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], name)
     # this is the entire pdf as a string
     pdf_string = get_pdf_file_content(file_path)
-
     analyzed_data = analyze_data(file_path)
 
-
-    return analyzed_data
+    # return analyzed_data
+    return render_template("output.html", data=analyzed_data)
 
     # this is the download path
     # return send_from_directory(app.config["UPLOAD_FOLDER"], name)

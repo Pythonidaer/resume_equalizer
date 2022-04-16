@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Your Data</h1>
+    <div>{{data}}</div>
+    <hr>
+    <div>
+        {% for d in data %}
+            <h3>Keys: {{d}}</h3>
+            {% for i in data[d] %}
+                <p>Value {{loop.index}}: {{i}}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>
