@@ -20,7 +20,6 @@ import pprint
 import json
 
 # attempt to upload file again
-# Uploading Flask Files CODE START
 import os
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory, flash
 from werkzeug.utils import secure_filename
@@ -62,7 +61,7 @@ def get_pdf_file_content(path_to_pdf):
 
 pdf_entry = os.listdir(f'{UPLOAD_FOLDER}')
 
-
+#this isn't doing anything right now
 def pdf_entry_returner():
     for entry in pdf_entry:
         return entry
@@ -158,7 +157,7 @@ def upload_file():
         # print(secured_file)
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
         # return 'file uploaded successfully'
-        return redirect("/uploads/" + secured_file)
+        return redirect("/analyze/" + secured_file)
 
 
 #you'll want to add back in this validation
@@ -186,29 +185,16 @@ def upload_file():
     return render_template('index.html') #this renders the file in the templates folder instead of putting html here
 
 
-# Displays the pdf on screen
-@app.route('/uploads/<name>')
-def download_file(name):
+@app.route('/analyze/<name>')
+def analyze(name):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], name)
     # this is the entire pdf as a string
     pdf_string = get_pdf_file_content(file_path)
     analyzed_data = analyze_data(file_path)
-
-    # return analyzed_data
     return render_template("output.html", data=analyzed_data)
 
-    # this is the download path
-    # return send_from_directory(app.config["UPLOAD_FOLDER"], name)
-    # this is where you would work with the file. Instead of the current return, you could go with something like
-    # with open(app.config["UPLOAD_FOLDER"], name) as file:
-        # put pdf operations here
-        # put output here - another return render_template()
 
-
-# this code block typically goes at the very end of your file
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     # app.run('host='0.0.0.0, port=port)
     app.run(debug=True) #this will make it restart every time you save - super helpful
-
-# Uploading Flask Files CODE END
