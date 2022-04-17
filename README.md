@@ -95,3 +95,12 @@ https://getbootstrap.com/docs/5.1/components/accordion/
 
 Get in the Flask:
 https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
+
+Material Design Icons:
+https://fonts.google.com/icons?selected=Material+Icons&icon.query=question
+
+Kevin Powell is the best!
+https://www.youtube.com/watch?v=yc2olxLgKLk
+
+Buy me a coffee button. Major credit to Sayed Rafeeq:
+https://codepen.io/syedrafeeq/pen/Brjezo

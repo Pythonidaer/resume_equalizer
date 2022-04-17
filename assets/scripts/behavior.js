@@ -1,3 +1,7 @@
+$("#myModal").on("shown.bs.modal", function () {
+  $("#myInput").trigger("focus");
+});
+
 // Make it so the last word in each panel ends in a period, rather than a comma.
 const words = document.querySelectorAll(".accordion-body");
 for (const word of words) {
