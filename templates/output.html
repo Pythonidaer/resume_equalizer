@@ -9,7 +9,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- <link rel="stylesheet" href="assets/styles/styles.css" /> -->
+    <link rel="stylesheet" href="/styles/styles.css" />
     <title>Upload new File</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
       <h1 class="my-4">Resume Equalizer</h1>
       <div class="accordion" id="partsOfSpeech">
         {% for d in data %}
-        <div class="accordion-item not-hidden">
+        <div class="accordion-item">
           <h2 class="accordion-header" id="heading{{d}}" \>
             <button
               class="accordion-button collapsed"
@@ -27,7 +27,11 @@
               aria-expanded="false"
               aria-controls="collapse{{d}}"
             >
-              {{d}}
+              <span class="POS-tag">{{d}}</span>
+              <span
+                class="exit-button"
+                title="Click to remove this panel"
+              ></span>
             </button>
           </h2>
           <div class="accordion-collapse collapse" id="collapse{{d}}">
@@ -47,6 +51,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <!-- <script src="../assets/scripts/behavior.js"></script> -->
+    <script src="/scripts/behavior.js"></script>
   </body>
 </html>

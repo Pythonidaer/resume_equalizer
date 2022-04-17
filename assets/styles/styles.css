@@ -1,6 +1,31 @@
-.not-hidden {
+button.accordion-button {
+  display: flex;
+  flex-direction: row;
+  width: 100% !important;
 }
 
-.hidden {
-  display: none;
+.exit-button {
+  border-radius: 20px;
+  background: hsl(4, 67%, 49%)
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e")
+    center/.5em auto no-repeat;
+  opacity: 0.5;
+  transition: 0.2s ease-in-out;
+  margin-left: auto;
+
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em 0.25em;
+  color: #fff;
+  margin-right: 1.25rem;
+}
+
+.exit-button:hover,
+.exit-button:focus {
+  opacity: 1;
+}
+
+.accordion-button::after {
+  margin-left: 0;
 }

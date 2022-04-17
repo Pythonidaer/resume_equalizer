@@ -23,7 +23,12 @@ from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Flask(__name__,
+static_url_path='',
+static_folder='assets',
+template_folder='templates')
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
