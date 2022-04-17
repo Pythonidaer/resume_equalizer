@@ -1,4 +1,5 @@
 # Messy experimentations
+uploads/
 __pycache__
 # templates
 website
@@ -13,6 +14,7 @@ remove_watermark.py
 test.json
 balls.html
 appBackup.py
+flaskbasics/
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/

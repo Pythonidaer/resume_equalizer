@@ -49,6 +49,8 @@ NLTK docs:
 https://www.youtube.com/watch?v=X2vAabgKiuM
 https://www.nltk.org/data.html
 https://pypi.org/project/nltk/
+https://www.guru99.com/pos-tagging-chunking-nltk.html#:~:text=POS%20Tagging%20in%20NLTK%20is,each%20word%20of%20the%20sentence.
+https://www.nltk.org/book/ch05.html
 
 - This needed to be downloaded
 - How would this go about being used on a production server?
@@ -87,3 +89,18 @@ https://www.askpython.com/python/list/iterate-through-list-in-python
 I need to combine the PDF Miner tutorial with this one:
 https://github.com/viveksb007/camscanner_watermark_remover
 https://viveksb007.github.io/2018/04/uploading-processing-downloading-files-in-flask
+
+Bootstrap Accordion:
+https://getbootstrap.com/docs/5.1/components/accordion/
+
+Get in the Flask:
+https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
+
+Material Design Icons:
+https://fonts.google.com/icons?selected=Material+Icons&icon.query=question
+
+Kevin Powell is the best!
+https://www.youtube.com/watch?v=yc2olxLgKLk
+
+Buy me a coffee button. Major credit to Sayed Rafeeq:
+https://codepen.io/syedrafeeq/pen/Brjezo
