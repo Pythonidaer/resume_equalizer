@@ -109,7 +109,8 @@ def analyze_data(path_to_pdf):
         filtered_accordion[key] = list(set(value))
 
     # need to remove $ as character is not allowed in certain html attributes
-    filtered_accordion['PRPS'] = filtered_accordion.pop('PRP$')
+    if "PRP$" in filtered_accordion:
+        filtered_accordion['PRPS'] = filtered_accordion.pop('PRP$')
 
     return filtered_accordion
 
