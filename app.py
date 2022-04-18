@@ -12,7 +12,7 @@ from nltk.tokenize import word_tokenize, blankline_tokenize
 from nltk.corpus import stopwords
 # punction will be used to filter out numerous word/characters
 import re 
-punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™]')
+punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-]')
 # This allows formatted objects in prints, and to write json
 import pprint
 import json
@@ -130,29 +130,25 @@ def upload_file():
         # return 'file uploaded successfully'
         return redirect("/analyze/" + secured_file)
 
-
-#you'll want to add back in this validation
+#Need to act in validation, but it requires Jinja in the HTML to work
+# As Andrew mentioned,  see https://flask.palletsprojects.com/en/2.1.x/patterns/flashing/ -- right now it will throw an error since this isn't fully set up
     # if request.method == 'POST':
     #     # check if the post request has the file part
     #     if 'file' not in request.files:
-    #         flash('No file part') # this requires some jinja in the html to make work see https://flask.palletsprojects.com/en/2.1.x/patterns/flashing/ right now it will throw an error
+    #          # this requires some jinja in the html to make work
+    #         flash('No file part')
     #         return redirect(request.url)
-    #     file = request.files['file']
+    #     f = request.files['file']
+    #     secured_file = secure_filename(f.filename)
     #     # If the user does not select a file, the browser submits an
     #     # empty file without a filename.
-    #     if file.filename == '':
+    #     if f.filename == '':
     #         flash('No selected file')
     #         return redirect(request.url)
-    #     if file and allowed_file(file.filename):
-    #         filename = secure_filename(file.filename)
-    #         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    #         # print(app.config['UPLOAD_FOLDER'], filename)
-    #         # return f"{app.config['UPLOAD_FOLDER']}/{filename}"
-    #         # return redirect(request.url), f"{app.config['UPLOAD_FOLDER']}/{filename}"
-    #
-    #         # print(get_pdf_file_content(f"{UPLOAD_FOLDER}/{filename}"))
-    #         print(f"{app.config['UPLOAD_FOLDER']}/{filename}")
-    #         return render_template("index.html")
+    #     if f and allowed_file(f.filename):
+    #         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
+    #         return redirect("/analyze/" + secured_file)
+
     return render_template('index.html') #this renders the file in the templates folder instead of putting html here
 
 
