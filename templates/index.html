@@ -14,34 +14,28 @@
   </head>
   <body class="d-flex flex-column">
 
-{% for category, message in get_flashed_messages(with_categories=true) %}
-<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-   {{ message }}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-{% endfor %}
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
 
     <div class="container-md">
       <div class="d-flex align-items-center">
-
         <h1 class="my-4">Upload a new File</h1>
 
 
-
-
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-info ml-auto
-" data-toggle="modal" data-target="#aboutAppModal">
+<button type="button" class="btn btn-info ml-auto" data-toggle="modal" data-target="#aboutAppModal">
 <span class="material-icons">
   help
   </span>
 </button>
 
-<button type="button" class="btn btn-primary ml-3 how-to
-" data-toggle="modal" data-target="#howToModal">
+<button type="button" class="btn btn-primary ml-3 how-to" data-toggle="modal" data-target="#howToModal">
 How to
 </button>
 

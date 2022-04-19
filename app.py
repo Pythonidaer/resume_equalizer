@@ -12,7 +12,7 @@ from nltk.tokenize import word_tokenize, blankline_tokenize
 from nltk.corpus import stopwords
 # punction will be used to filter out numerous word/characters
 import re 
-punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-]')
+punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-@]')
 # This allows formatted objects in prints, and to write json
 import pprint
 import json
