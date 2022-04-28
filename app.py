@@ -10,7 +10,8 @@ import os
 import nltk
 nltk.download('averaged_perceptron_tagger')
 # print( os.listdir( nltk.data.find("corpora") ) )
-# nltk.download()
+nltk.download()
+
 from nltk.tokenize import word_tokenize
 # print( os.listdir( nltk.data.find("corpora") ) )
 # from nltk.tokenize import word_tokenize, blankline_tokenize
