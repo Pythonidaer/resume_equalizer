@@ -12,7 +12,7 @@ import nltk
 # nltk.download('all')
 # nltk.download('word_tokenize')
 # print( os.listdir( nltk.data.find("corpora") ) )
-nltk.download('punkt')
+# nltk.download('punkt')
 
 from nltk.tokenize import word_tokenize
 # print( os.listdir( nltk.data.find("corpora") ) )

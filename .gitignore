@@ -13,6 +13,7 @@ Heroku.md
 *.pyc
 requirementsOld.txt
 requirementst.txt
+ProcfileOld
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/
