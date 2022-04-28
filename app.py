@@ -75,6 +75,17 @@ def analyze_data(path_to_pdf):
     tuple_extractor = []
     for list_tuple in pos_jobrec:
         tuple_extractor.append(list_tuple[0])
+    
+    # ##########################################################
+    # ##########################################################
+    #  Idea for possible refactor:
+    # Let's say we have a list of tuples: user = [(0, "Bob"), (1, "Jose")]
+    # username_mapping = {user[1]: user for user in users} is a dict comprehension
+    # If mixed with a loop and a set, maybe this could reduce for loop code
+
+    # ##########################################################
+    # ##########################################################
+
 
     # Reverse tuples so POS appear first, almost like a K:V pair
     def Reverse(tuples):
