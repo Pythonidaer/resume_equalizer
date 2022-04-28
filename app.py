@@ -7,7 +7,9 @@ from io import StringIO
 from pdfminer.pdfpage import PDFPage
 # NLTK tutorial in README
 import os 
+
 import nltk
+nltk.download('all')
 # nltk.download('word_tokenize')
 # print( os.listdir( nltk.data.find("corpora") ) )
 # nltk.download('punkt')
