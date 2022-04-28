@@ -9,8 +9,6 @@ cryptography==36.0.2
 distlib==0.3.4
 filelock==3.6.0
 Flask==2.1.1
-Flask-Login==0.6.0
-Flask-SQLAlchemy==2.5.1
 greenlet==1.1.2
 h11==0.13.0
 h2==4.1.0
@@ -22,7 +20,6 @@ joblib==1.1.0
 kaitaistruct==0.9
 ldap3==2.9.1
 MarkupSafe==2.1.1
-mitmproxy==8.0.0
 msgpack==1.0.3
 nltk==3.7
 passlib==1.7.4
@@ -51,4 +48,4 @@ uwsgi
 virtualenv==20.14.1
 Werkzeug==2.1.1
 wsproto==1.1.0
-zstandard==0.17.0
+zstandard==0.17.0 
