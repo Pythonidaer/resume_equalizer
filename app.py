@@ -8,6 +8,7 @@ from pdfminer.pdfpage import PDFPage
 # NLTK tutorial in README
 import os 
 import nltk
+nltk.download('averaged_perceptron_tagger')
 # print( os.listdir( nltk.data.find("corpora") ) )
 # nltk.download()
 from nltk.tokenize import word_tokenize
