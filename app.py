@@ -12,7 +12,7 @@ from nltk.tokenize import word_tokenize, blankline_tokenize
 from nltk.corpus import stopwords
 # punction will be used to filter out numerous word/characters
 import re 
-punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-]')
+punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-@]')
 # This allows formatted objects in prints, and to write json
 import pprint
 import json
@@ -28,6 +28,7 @@ app = Flask(__name__,
 static_url_path='',
 static_folder='assets',
 template_folder='templates')
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -74,6 +75,17 @@ def analyze_data(path_to_pdf):
     tuple_extractor = []
     for list_tuple in pos_jobrec:
         tuple_extractor.append(list_tuple[0])
+    
+    # ##########################################################
+    # ##########################################################
+    #  Idea for possible refactor:
+    # Let's say we have a list of tuples: user = [(0, "Bob"), (1, "Jose")]
+    # username_mapping = {user[1]: user for user in users} is a dict comprehension
+    # If mixed with a loop and a set, maybe this could reduce for loop code
+
+    # ##########################################################
+    # ##########################################################
+
 
     # Reverse tuples so POS appear first, almost like a K:V pair
     def Reverse(tuples):
@@ -119,37 +131,26 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part', 'error')
+            return redirect(request.url)
         f = request.files['file']
         secured_file = secure_filename(f.filename)
-        # print(secured_file)
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
-        # return 'file uploaded successfully'
-        return redirect("/analyze/" + secured_file)
-
-#Need to act in validation, but it requires Jinja in the HTML to work
-# As Andrew mentioned,  see https://flask.palletsprojects.com/en/2.1.x/patterns/flashing/ -- right now it will throw an error since this isn't fully set up
-    # if request.method == 'POST':
-    #     # check if the post request has the file part
-    #     if 'file' not in request.files:
-    #          # this requires some jinja in the html to make work
-    #         flash('No file part')
-    #         return redirect(request.url)
-    #     f = request.files['file']
-    #     secured_file = secure_filename(f.filename)
-    #     # If the user does not select a file, the browser submits an
-    #     # empty file without a filename.
-    #     if f.filename == '':
-    #         flash('No selected file')
-    #         return redirect(request.url)
-    #     if f and allowed_file(f.filename):
-    #         f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
-    #         return redirect("/analyze/" + secured_file)
-
-    return render_template('index.html') #this renders the file in the templates folder instead of putting html here
+        if f.filename == '':
+            flash('You need to choose a pdf file first!', 'danger')
+            return redirect(request.url)
+        if not allowed_file(f.filename):
+            flash('Sorry! File upload must be .pdf format only.', 'warning')
+            return redirect(request.url)
+        if f and allowed_file(f.filename):
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
+            return redirect("/analyze/" + secured_file)
+    #this renders the file in the templates folder instead of putting html here 
+    return render_template('index.html') 
 
 
 @app.route('/analyze/<name>')

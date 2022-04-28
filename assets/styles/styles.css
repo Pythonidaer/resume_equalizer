@@ -2,6 +2,10 @@ body {
   min-height: 100vh;
 }
 
+.hidden {
+  display: none;
+}
+
 button.accordion-button {
   display: flex;
   flex-direction: row;
@@ -34,7 +38,8 @@ button.accordion-button {
   margin-left: 0;
 }
 
-button.btn.btn-info.ml-auto {
+button.btn.btn-info.ml-auto,
+button.btn.btn-primary.ml-auto {
   line-height: 0;
   padding: 10px;
 }

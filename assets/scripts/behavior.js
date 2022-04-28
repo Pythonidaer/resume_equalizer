@@ -69,6 +69,53 @@ for (const tag of tagRenaming) {
   }
 }
 
+// This checks to see if the Parts of Speech span's text contains:
+// noun, verb, adjective, or miscellaneous
+function loopOverPOSTags(labelText) {
+  for (const tag of tagRenaming) {
+    if (tag.innerText.includes(labelText.toLowerCase())) {
+      tag.parentElement.parentElement.parentElement.classList.toggle("hidden");
+    } else if (
+      !tag.innerText.includes("noun") &&
+      !tag.innerText.includes("verb") &&
+      !tag.innerText.includes("adjective") &&
+      labelText === "Miscellaneous"
+    ) {
+      tag.parentElement.parentElement.parentElement.classList.toggle("hidden");
+    }
+  }
+}
+
+const filterCheckboxes = document.querySelectorAll(".form-check-input");
+
+for (const checkbox of filterCheckboxes) {
+  checkbox.addEventListener("click", function () {
+    // Label Text examples: Noun, Verb, Miscellaneous
+    let labelText = checkbox.nextSibling.nextSibling.textContent;
+
+    switch (labelText) {
+      case "Noun":
+        loopOverPOSTags(labelText);
+        break;
+      case "Verb":
+        loopOverPOSTags(labelText);
+        break;
+      case "Adjective":
+        loopOverPOSTags(labelText);
+        break;
+      case "Miscellaneous":
+        loopOverPOSTags(labelText);
+        break;
+      default:
+        console.log(false);
+    }
+  });
+
+  let box = document.getElementById("inlineCheckbox4");
+  box.click();
+  box.checked = false;
+}
+
 // Original copy/paste, but I wanted to remove the examples
 // const pos_tags = [
 //   ["CC", "coordinating conjunction"],
