@@ -14,7 +14,7 @@ Heroku.md
 requirementsOld.txt
 requirementst.txt
 ProcfileOld
-nltk.txt
+uwsgi.ini
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/
