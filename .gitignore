@@ -12,6 +12,7 @@ flaskbasics/
 oldIDea
 Heroku.md
 *.pyc
+requirementsOld.txt
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/
