@@ -8,7 +8,10 @@ from pdfminer.pdfpage import PDFPage
 # NLTK tutorial in README
 import os 
 import nltk
+# print( os.listdir( nltk.data.find("corpora") ) )
+# nltk.download()
 from nltk.tokenize import word_tokenize
+# print( os.listdir( nltk.data.find("corpora") ) )
 # from nltk.tokenize import word_tokenize, blankline_tokenize
 # from nltk.corpus import stopwords
 # punction will be used to filter out numerous word/characters
