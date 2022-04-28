@@ -9,6 +9,7 @@ from pdfminer.pdfpage import PDFPage
 import os 
 
 import nltk
+nltk.download('punkt')
 # nltk.download('all')
 # nltk.download('word_tokenize')
 # print( os.listdir( nltk.data.find("corpora") ) )
