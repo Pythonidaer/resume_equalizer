@@ -1,20 +1,17 @@
-# Messy experimentations
 uploads/
-__pycache__
-# templates
+__pycache__/
 website
 main.py
 app.txt
 demo.py 
 requirements.txt
-main.txt
-remove_watermark.py
 accordion.json
 remove_watermark.py
 appBackup.py
 flaskbasics/
 oldIDea
 Heroku.md
+*.pyc
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/
