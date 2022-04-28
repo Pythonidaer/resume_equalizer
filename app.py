@@ -8,8 +8,9 @@ from pdfminer.pdfpage import PDFPage
 # NLTK tutorial in README
 import os 
 import nltk
-from nltk.tokenize import word_tokenize, blankline_tokenize
-from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+# from nltk.tokenize import word_tokenize, blankline_tokenize
+# from nltk.corpus import stopwords
 # punction will be used to filter out numerous word/characters
 import re 
 punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-@]')
