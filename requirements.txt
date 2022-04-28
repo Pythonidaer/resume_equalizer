@@ -6,7 +6,6 @@ Jinja2==3.1.1
 joblib==1.1.0
 MarkupSafe==2.1.1
 nltk==3.7
-nltk.txt
 pdfminer==20191125
 pycryptodome==3.14.1
 regex==2022.4.24
