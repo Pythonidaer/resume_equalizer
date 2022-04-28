@@ -8,9 +8,9 @@ from pdfminer.pdfpage import PDFPage
 # NLTK tutorial in README
 import os 
 import nltk
-nltk.download('word_tokenize')
+# nltk.download('word_tokenize')
 # print( os.listdir( nltk.data.find("corpora") ) )
-nltk.download('punkt')
+# nltk.download('punkt')
 
 from nltk.tokenize import word_tokenize
 # print( os.listdir( nltk.data.find("corpora") ) )
