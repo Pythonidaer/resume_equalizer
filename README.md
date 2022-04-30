@@ -104,3 +104,12 @@ https://www.youtube.com/watch?v=yc2olxLgKLk
 
 Buy me a coffee button. Major credit to Sayed Rafeeq:
 https://codepen.io/syedrafeeq/pen/Brjezo
+
+To remove "Warning: Don't use this in Production" error:
+https://exerror.com/warning-this-is-a-development-server-do-not-use-it-in-a-production-deployment-use-a-production-wsgi-server-instead/
+
+Confirmation of an unharmful warming message I was seeing during deploys:
+https://doc.scalingo.com/languages/python/nltk
+
+Hiding secret keys on Windows:
+https://www.youtube.com/watch?v=IolxqkL7cD8
