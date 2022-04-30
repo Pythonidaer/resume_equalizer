@@ -56,7 +56,10 @@ def get_pdf_file_content(path_to_pdf):
     text_converter.close()
     out_text.close()
     return text
-pdf_entry = os.listdir(f'{UPLOAD_FOLDER}')
+# pdf_entry = os.listdir(f'{UPLOAD_FOLDER}')
+print('-------')
+# print(pdf_entry)
+print('-------')
 
 # dumped all of this into a function to call from flask route
 def analyze_data(path_to_pdf):
