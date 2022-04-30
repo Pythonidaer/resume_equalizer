@@ -38,7 +38,8 @@ button.accordion-button {
   margin-left: 0;
 }
 
-button.btn.btn-info.ml-auto,
+button.btn.btn-warning.ml-auto,
+button.btn.btn-success.ml-auto,
 button.btn.btn-primary.ml-auto {
   line-height: 0;
   padding: 10px;
@@ -76,4 +77,105 @@ button.btn.btn-primary.ml-auto {
 .btn-linkedin:hover {
   background: #084461;
   color: #fff;
+}
+
+.container-md.d-flex.flex-column.modal-and-form-container {
+  height: 80vh;
+}
+
+form {
+  max-width: 584px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input.form-control {
+  height: 40px;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+}
+
+input.btn.btn-outline-secondary {
+  height: 40px;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+footer.mt-auto.container-md.d-flex.align {
+  max-height: 20vh;
+}
+
+.mobile-row-btns {
+  margin-left: auto;
+}
+
+/* .accordion-button:focus {
+  z-index: 3;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+} */
+
+.accordion-button {
+  color: #e8eaed;
+  background-color: #7a7c86;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #e8eaed;
+  background-color: #5aafff;
+}
+
+.accordion-button:focus,
+.accordion-button:active {
+  z-index: 3;
+  border-color: #fff !important;
+  box-shadow: none !important;
+}
+
+@media all and (max-width: 768px) {
+  .d-flex.align-items-center {
+    flex-direction: column;
+  }
+
+  .button.btn.btn-warning.ml-auto {
+    margin: 0 auto !important;
+  }
+
+  .mobile-row-btns {
+    display: flex;
+    width: 100%;
+  }
+
+  button.btn.btn-success.ml-3.how-to {
+    margin-right: 8px;
+  }
+
+  form {
+    margin-left: 8px;
+    margin-right: 8px;
+    max-width: 736px;
+  }
+
+  .footer.mt-auto.container-md.d-flex.align {
+    max-width: 736px;
+  }
+
+  .mt-auto.pb-5 {
+    margin-left: 8px;
+  }
+
+  .mt-auto.pb-5 {
+    padding-bottom: 12px !important;
+  }
+
+  a.btn-linkedin {
+    margin-right: 8px;
+  }
+
+  button.btn.btn-primary.ml-auto {
+    margin-bottom: 1.5rem;
+  }
 }
