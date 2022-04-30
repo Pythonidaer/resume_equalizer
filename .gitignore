@@ -15,6 +15,7 @@ requirementsOld.txt
 requirementst.txt
 ProcfileOld
 uwsgi.ini
+code/
 
 # Byte-compiled / optimized / DLL files
 # __pycache__/
