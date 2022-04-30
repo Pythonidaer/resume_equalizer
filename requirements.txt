@@ -11,4 +11,5 @@ pdfminer==20191125
 pycryptodome==3.14.1
 regex==2022.4.24
 tqdm==4.64.0
+waitress==2.1.1
 Werkzeug==2.1.1

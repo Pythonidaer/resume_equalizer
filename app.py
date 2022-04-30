@@ -31,7 +31,6 @@ static_url_path='',
 static_folder='assets',
 template_folder='templates')
 app.secret_key = os.environ.get('SECRET_KEY')
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
@@ -49,10 +48,6 @@ def get_pdf_file_content(path_to_pdf):
     text_converter.close()
     out_text.close()
     return text
-# pdf_entry = os.listdir(f'{UPLOAD_FOLDER}')
-print('-------')
-# print(pdf_entry)
-print('-------')
 
 # dumped all of this into a function to call from flask route
 def analyze_data(path_to_pdf):
@@ -117,9 +112,7 @@ def analyze_data(path_to_pdf):
     # need to remove $ as character is not allowed in certain html attributes
     if "PRP$" in filtered_accordion:
         filtered_accordion['PRPS'] = filtered_accordion.pop('PRP$')
-
     return filtered_accordion
-
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -145,16 +138,12 @@ def upload_file():
             return redirect("/analyze/" + secured_file)
     return render_template('index.html') 
 
-
 @app.route('/analyze/<name>')
 def analyze(name):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], name)
-    # this is the entire pdf as a string
-    pdf_string = get_pdf_file_content(file_path)
     analyzed_data = analyze_data(file_path)
     return render_template("output.html", data=analyzed_data)
 
-
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=True)
+    from waitress import serve 
+    serve(app, host="0.0.0.0", port=8080)
