@@ -7,17 +7,10 @@ from io import StringIO
 from pdfminer.pdfpage import PDFPage
 # NLTK tutorial in README
 import os 
-
 import nltk
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
-# nltk.download('all')
-# nltk.download('word_tokenize')
-# print( os.listdir( nltk.data.find("corpora") ) )
-# nltk.download('punkt')
-
 from nltk.tokenize import word_tokenize
-# print( os.listdir( nltk.data.find("corpora") ) )
 # from nltk.tokenize import word_tokenize, blankline_tokenize
 # from nltk.corpus import stopwords
 # punction will be used to filter out numerous word/characters
@@ -28,17 +21,16 @@ import pprint
 import json
 # attempt to upload file again
 import os
-from flask import Flask, request, redirect, url_for, render_template, send_from_directory, flash
+from flask import Flask, request, redirect, render_template, flash
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
-# app = Flask(__name__)
 app = Flask(__name__,
 static_url_path='',
 static_folder='assets',
 template_folder='templates')
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = os.environ.get('SECRET_KEY')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -88,17 +80,6 @@ def analyze_data(path_to_pdf):
     tuple_extractor = []
     for list_tuple in pos_jobrec:
         tuple_extractor.append(list_tuple[0])
-    
-    # ##########################################################
-    # ##########################################################
-    #  Idea for possible refactor:
-    # Let's say we have a list of tuples: user = [(0, "Bob"), (1, "Jose")]
-    # username_mapping = {user[1]: user for user in users} is a dict comprehension
-    # If mixed with a loop and a set, maybe this could reduce for loop code
-
-    # ##########################################################
-    # ##########################################################
-
 
     # Reverse tuples so POS appear first, almost like a K:V pair
     def Reverse(tuples):
@@ -162,7 +143,6 @@ def upload_file():
         if f and allowed_file(f.filename):
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secured_file))
             return redirect("/analyze/" + secured_file)
-    #this renders the file in the templates folder instead of putting html here 
     return render_template('index.html') 
 
 
@@ -177,5 +157,4 @@ def analyze(name):
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    # app.run('host='0.0.0.0, port=port)
     app.run(debug=True)
