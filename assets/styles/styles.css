@@ -84,7 +84,7 @@ button.btn.btn-primary.ml-auto {
 }
 
 form {
-  max-width: 584px;
+  min-width: 584px;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
@@ -111,12 +111,12 @@ footer.mt-auto.container-md.d-flex.align {
   margin-left: auto;
 }
 
-/* .accordion-button:focus {
-  z-index: 3;
-  border-color: #86b7fe;
-  outline: 0;
-  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
-} */
+.input-group:not(.has-validation)
+  > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+.input-group
+  > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+  height: 100% !important;
+}
 
 .accordion-button {
   color: #e8eaed;
