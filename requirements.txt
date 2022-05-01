@@ -9,6 +9,7 @@ MarkupSafe==2.1.1
 nltk==3.7
 pdfminer==20191125
 pycryptodome==3.14.1
+python-dotenv==0.20.0
 regex==2022.4.24
 tqdm==4.64.0
 waitress==2.1.1

@@ -23,14 +23,15 @@ import json
 import os
 from flask import Flask, request, redirect, render_template, flash
 from werkzeug.utils import secure_filename
-
+from dotenv import dotenv_values
+SECRET_KEY = dict(dotenv_values(".env"))
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 app = Flask(__name__,
 static_url_path='',
 static_folder='assets',
 template_folder='templates')
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = SECRET_KEY['SECRET_KEY']
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
