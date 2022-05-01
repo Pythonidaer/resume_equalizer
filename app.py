@@ -23,7 +23,16 @@ import json
 import os
 from flask import Flask, request, redirect, render_template, flash
 from werkzeug.utils import secure_filename
-from dotenv import dotenv_values
+from dotenv import load_dotenv, find_dotenv, dotenv_values
+from boto.s3.connection import S3Connection
+# s3 = S3Connection(os.environ['SECRET_KEY'])
+
+
+# print(s3.SECRET_KEY)
+
+load_dotenv(find_dotenv())
+# print(os.getenv('SECRET_KEY'))
+
 SECRET_KEY = dict(dotenv_values(".env"))
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
@@ -31,7 +40,7 @@ app = Flask(__name__,
 static_url_path='',
 static_folder='assets',
 template_folder='templates')
-app.secret_key = SECRET_KEY['SECRET_KEY']
+app.secret_key = os.getenv('SECRET_KEY')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # All from the PDF Miner tutorial - this function takes the path to pdf file as an argument, and returns the string version of the pdf.
