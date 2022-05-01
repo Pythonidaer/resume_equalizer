@@ -84,7 +84,7 @@ button.btn.btn-primary.ml-auto {
 }
 
 form {
-  min-width: 584px;
+  width: 584px;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
