@@ -84,7 +84,8 @@ button.btn.btn-primary.ml-auto {
 }
 
 form {
-  width: 584px;
+  max-width: 736px;
+  min-width: 600px;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
@@ -156,6 +157,7 @@ footer.mt-auto.container-md.d-flex.align {
   form {
     margin-left: 8px;
     margin-right: 8px;
+    min-width: 0;
     max-width: 736px;
   }
 
