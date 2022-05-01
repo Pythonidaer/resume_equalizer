@@ -23,17 +23,8 @@ import json
 import os
 from flask import Flask, request, redirect, render_template, flash
 from werkzeug.utils import secure_filename
-from dotenv import load_dotenv, find_dotenv, dotenv_values
-from boto.s3.connection import S3Connection
-# s3 = S3Connection(os.environ['SECRET_KEY'])
-
-
-# print(s3.SECRET_KEY)
-
+from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
-# print(os.getenv('SECRET_KEY'))
-
-SECRET_KEY = dict(dotenv_values(".env"))
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 app = Flask(__name__,
