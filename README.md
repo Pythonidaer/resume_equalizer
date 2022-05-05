@@ -1,115 +1,93 @@
-# resume_equalizer
+# Resumé Equalizer
 
-A project aimed to bring advantage to job applications for roles that may screen resumes based off of keywords.
+_Job Description PDF parser that returns unique keywords organized by Parts Of Speech (POS). Created with Python, Flask, PDF Miner and Natural Language Processing._
 
-This was unnecessarily difficult:
-https://stackoverflow.com/questions/31172719/pip-install-access-denied-on-windows
+[View Deployed Application Here.](https://resumeequalizer.herokuapp.com/)
 
-The first hurdle I've come to struggle greatly with is having a user upload a file (pdf) to a server that can be returned into a file path. I think I need this for the pdf reader to work, but once I get past this hurdle the user can provide their PDF.
+# Installation
 
-There are unforeseen exceptions to special characters. I tried to test for many, such as weird apostraphes, bullet items, etc.
+1. Clone repository to your local device
+2. `pip install` the requirements.txt dependencies - You may also need to download [nltk](https://www.nltk.org/data.html).
+3. May work best in a virtual environment (venv).
+4. Test by running app with `python app.py`
+5. If you run into any issues, feel free to reach out and I will try to assist via LinkedIn.
 
-One issue I stopped on tonight was on the values of all the tuples:
-https://pythonguides.com/python-dictionary-values-to-list/
+# User Story
 
-The issue is that parts of speech are being organized by acronyms. Every word is in a tuple with a POS. I need to figure out a way that makes separate lists for each acronym.
+```
+GIVEN a user looking to tailor a resumé and/or cover letter
+WHEN I upload a Job Description pdf
+THEN I see an accordion component of unique words from the pdf, categorized by Parts Of Speech
+WHEN I click on a panel
+THEN I see a full list of words relating to that Part Of Speech
+WHEN I click the filter icon
+THEN I can choose to view only Nouns | Adjectives | Verbs | Miscellaneous / etc.
+WHEN I click the red "x" on a panel
+THEN that panel gets removed permanently from the page (re-upload a pdf to view again)
+WHEN I want to use these words to add to my resumé and/or cover letter
+THEN each word available in the accordion panel were words parsed from the PDF I uploaded
+```
 
-I'm thinking, maybe it's possible to use each tuple POS value as a key in a dict? That way, if the POS value doesn't exist in the dict, make it a new key. Else, if there is already a POS key present, add that tuple's key into the list for that associated dict key
+# How to Use
 
-sample idea:
+1. Click the "Choose File" button or drag and drop a Job Description pdf to the "No file chosen" input.
+2. Click "Upload".
+3. Click a grey panel ("JJ: adjective") to expand and see all the words available in this section.
+4. Click the filter icon to choose between Nouns, Adjectives, Verbs and Miscellanous POS.
+5. Click the red "x" on any panel to permanently remove it from the page.
+6. Expand each tab you like to easily choose from words as you tailor your documents.
+7. Please feel free to [Buy Me A Coffee!](https://www.buymeacoffee.com/jonamichahammo)
 
-[
-('do', 'VB'),
-('display', 'NN'),
-('needs', 'NNS)
-]
+# Usage
 
-would become:
+This repo contains a Group Project created by [Jonathan Hammond](https://www.linkedin.com/in/jonamichahammo/) and [Andrew Clarkson](linkedin.com/in/andrewtclarkson/). Special thanks to [Mohammed Ahmed](https://www.linkedin.com/in/mohakc/) who greatly assisted with troubleshooting errors experienced when we first attempted to deploy an app with nltk to Heroku.
 
-{
-'VB': ['do'],
-'NN': ['display', 'pricing'], # etc.
-'NNS': ['needs']
-}
+Feel free to inspect the code and make it your own. This product utilized:
 
-How users would get to providing a PDF:
+- Heroku CLI to deploy from the command line
+- Bootstrap and custom CSS ([Kevin Powell](https://www.kevinpowell.co/) always saves the day)
+- Flask, a Python microframework, and Jinja, an extensible templating engine
+- PDF Miner, a Python library that transforms pdfs into string text
+- python-dotenv, a Python library that allowed me to access variables from my .env file
+- gunicorn, a aPython WSGI HTTP Server, which allowed me to deploy my Heroku application
+- NLTK, a platform that allowed me to work with human language data ([The P.O.S. part](https://www.nltk.org/book/ch05.html)).
 
-- copy your Job Description into a Google Document
-- Paste without formatting
-- Try to remove any where characters
-- (bullet points, list items are fine)
-- Download as pdf ---> this would be uploaded
+# Credits
 
-From the demo.py:
-https://stackoverflow.com/questions/37934476/print-term-frequency-list-have-distribution
+[When I couldn't even pip install](https://stackoverflow.com/questions/31172719/pip-install-access-denied-on-windows)
 
-fdist can be used to find the most_common words. Either that or another library method can be used to find the amout for each word after each speech type has been organized
+[Categorizing and Tagging in NLTK](https://www.nltk.org/book/ch05.html)
 
-NLTK docs:
-https://www.youtube.com/watch?v=X2vAabgKiuM
-https://www.nltk.org/data.html
-https://pypi.org/project/nltk/
-https://www.guru99.com/pos-tagging-chunking-nltk.html#:~:text=POS%20Tagging%20in%20NLTK%20is,each%20word%20of%20the%20sentence.
-https://www.nltk.org/book/ch05.html
+[I Learned NLTK from this YouTube video!](https://www.youtube.com/watch?v=X2vAabgKiuM)
 
-- This needed to be downloaded
-- How would this go about being used on a production server?
+[This PDF Miner YouTube video is simply amazing](https://www.youtube.com/watch?v=1TDS6-hYPDI&t=302s)
 
-PDF Miner:
+[pprint for formatted prints](https://stackoverflow.com/questions/44689546/how-to-print-out-a-dictionary-nicely-in-python)
 
-Explained best by this gentlemen, finally one that works!
-https://www.youtube.com/watch?v=1TDS6-hYPDI&t=302s
+[Iterating through Python lists](https://www.askpython.com/python/list/iterate-through-list-in-python)
 
-https://pypi.org/project/pdfminer/
-https://www.analyticsvidhya.com/blog/2021/09/pypdf2-library-for-working-with-pdf-files-in-python/
+[A useful StackOverflow post](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask)
 
-Possible Resources for Flask:
-https://www.youtube.com/watch?v=Qr4QMBUPxWo&t=1s
-https://prettyprinted.com/
+["Buy Me A Coffee" button by Sayed Rafeeq](https://codepen.io/syedrafeeq/pen/Brjezo)
 
-- https://flask.palletsprojects.com/en/1.0.x/patterns/fileuploads/
-- Flask uses Jinja and is great for templating web pages
-- I want to template in POS collections into an accordion
+[That RuntimeWarning error that wasn't an issue](https://doc.scalingo.com/languages/python/nltk)
 
-SQL Alchemy is a Python ORM - was tough to figure out
-https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/
+[Stripe Developers help with dotenv](https://www.youtube.com/watch?v=ecshCQU6X2U)
 
-- I don't currently have enough time to dive into this.
+[More dotenv](https://www.youtube.com/watch?v=ryVzkQAtpKQ)
 
-Bootstrap
+[Even more dotenv](https://github.com/theskumar/python-dotenv)
 
-- https://getbootstrap.com/docs/5.1/utilities/float/
+[Secret Keys Demystified](https://stackoverflow.com/questions/22463939/demystify-flask-app-secret-key)
 
-pprint for formatted prints to terminal
-https://stackoverflow.com/questions/44689546/how-to-print-out-a-dictionary-nicely-in-python
+# Future Ideas
 
-Very convenient way to loop over lists by range:
-https://www.askpython.com/python/list/iterate-through-list-in-python
+My next project idea for this includes a dashboard. I want to maybe utilize SQL Alchemy to allow for persistent storage of multiple pdfs. I also don't want to strip away duplicates. For example, if a pdf has 7 Python, 3 hardworking and 17 JavaScript keywords, I want to be able to compare that in a pie chart with multiple Job Descriptions to detect trends.
 
-I need to combine the PDF Miner tutorial with this one:
-https://github.com/viveksb007/camscanner_watermark_remover
-https://viveksb007.github.io/2018/04/uploading-processing-downloading-files-in-flask
+# Additional Features
 
-Bootstrap Accordion:
-https://getbootstrap.com/docs/5.1/components/accordion/
+Would love to make this look like the main Google Search page and not like Bootstrap.
 
-Get in the Flask:
-https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
+# License
 
-Material Design Icons:
-https://fonts.google.com/icons?selected=Material+Icons&icon.query=question
-
-Kevin Powell is the best!
-https://www.youtube.com/watch?v=yc2olxLgKLk
-
-Buy me a coffee button. Major credit to Sayed Rafeeq:
-https://codepen.io/syedrafeeq/pen/Brjezo
-
-To remove "Warning: Don't use this in Production" error:
-https://exerror.com/warning-this-is-a-development-server-do-not-use-it-in-a-production-deployment-use-a-production-wsgi-server-instead/
-
-Confirmation of an unharmful warming message I was seeing during deploys:
-https://doc.scalingo.com/languages/python/nltk
-
-Hiding secret keys on Windows:
-https://www.youtube.com/watch?v=IolxqkL7cD8
+We've chosen an MIT License. Do what you'd like with this material.

@@ -20,7 +20,6 @@ punctuation = re.compile(r'[•%-.?!,:;()$`|0-9+*’™#-@]')
 import pprint
 import json
 # attempt to upload file again
-import os
 from flask import Flask, request, redirect, render_template, flash
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv, find_dotenv
